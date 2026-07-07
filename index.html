@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>AI 生图批量搜索组件原型</title>
+  <script>
+    const PAGE_VERSION = '20260707-002';
+    (function ensureFreshVersion() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('v') !== PAGE_VERSION) {
+        params.set('v', PAGE_VERSION);
+        const nextUrl = `${window.location.pathname}?${params.toString()}${window.location.hash || ''}`;
+        window.location.replace(nextUrl);
+      }
+    })();
+  </script>
   <style>
     :root {
       --navy: #001a30;
@@ -79,27 +93,33 @@
       justify-content: space-between;
       padding: 0 12px;
       color: white;
+      position: relative;
     }
     .hamb { font-size: 20px; opacity: .9; }
-    .top-actions { display: flex; align-items: center; gap: 10px; }
     .doc-link {
-      height: 28px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 30px;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 0 10px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 6px;
-      background: rgba(255,255,255,.08);
-      color: #fff;
+      padding: 0 18px;
+      border: 1px solid #ffe08a;
+      border-radius: 999px;
+      background: #ffd84d;
+      color: #132033;
       text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 800;
       white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(255, 216, 77, .28);
     }
     .doc-link:hover {
-      background: rgba(255,255,255,.16);
-      border-color: rgba(255,255,255,.36);
+      background: #ffca1a;
+      border-color: #ffefb0;
+      box-shadow: 0 3px 14px rgba(255, 216, 77, .42);
     }
     .user { font-size: 12px; }
     .page { padding: 16px 18px 28px; }
@@ -462,10 +482,8 @@
     <main class="main">
       <header class="topbar">
         <div class="hamb">☰</div>
-        <div class="top-actions">
-          <a class="doc-link" href="https://github.com/xuqiang97/ai_image_batch_search" target="_blank" rel="noopener noreferrer">README 需求文档 ↗</a>
-          <div class="user">♟ 徐强</div>
-        </div>
+        <a class="doc-link" href="https://github.com/xuqiang97/ai_image_batch_search" target="_blank" rel="noopener noreferrer">GitHub需求文档 ↗</a>
+        <div class="user">♟ 徐强</div>
       </header>
       <section class="page" id="page"></section>
     </main>
