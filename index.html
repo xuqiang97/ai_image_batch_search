@@ -81,6 +81,26 @@
       color: white;
     }
     .hamb { font-size: 20px; opacity: .9; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .doc-link {
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 10px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 6px;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .doc-link:hover {
+      background: rgba(255,255,255,.16);
+      border-color: rgba(255,255,255,.36);
+    }
     .user { font-size: 12px; }
     .page { padding: 16px 18px 28px; }
     .page-title {
@@ -440,7 +460,13 @@
       <div class="menu-item" data-page="ops-done">运营已完成生图</div>
     </aside>
     <main class="main">
-      <header class="topbar"><div class="hamb">☰</div><div class="user">♟ 徐强</div></header>
+      <header class="topbar">
+        <div class="hamb">☰</div>
+        <div class="top-actions">
+          <a class="doc-link" href="https://github.com/xuqiang97/ai_image_batch_search" target="_blank" rel="noopener noreferrer">README 需求文档 ↗</a>
+          <div class="user">♟ 徐强</div>
+        </div>
+      </header>
       <section class="page" id="page"></section>
     </main>
   </div>
@@ -614,7 +640,7 @@ function bindPageEvents() {
   input.oninput = e => { s.batchValue = e.target.value; validateAndPaint(currentPage); };
   input.onkeydown = e => { if (e.key === 'Enter') query(); };
   open.onclick = e => { e.stopPropagation(); openPop(batch); };
-  textarea.oninput = e => updateCountFromTextarea(textarea, batch);
+  textarea.oninput = e => updateCountFromTextarea(textarea, batch)
   textarea.onkeydown = e => { e.stopPropagation(); };
   batch.querySelector('[data-clear]').onclick = e => { e.stopPropagation(); s.batchValue = ''; input.value = ''; textarea.value = ''; validateAndPaint(currentPage); updateCountFromTextarea(textarea, batch); };
   batch.querySelector('[data-apply]').onclick = e => { e.stopPropagation(); const vals = normalize(textarea.value); if (!vals.length) return showToast('请输入批量搜索内容'); if (vals.length > 500) { validateAndPaint(currentPage, vals.length); return showToast(`超出上限：${vals.length} / 500`); } s.batchValue = vals.join(','); input.value = s.batchValue; closePop(batch, false); query(); };
